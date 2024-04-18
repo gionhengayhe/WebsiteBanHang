@@ -1,0 +1,41 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+
+@{
+    ViewData["Tittle"] = "Home Page";
+    int numOfQuantity = 1;
+}
+<link href="~/css/style.css" rel="stylesheet" />
+<div class="container">
+    <h1 class="text-center mb-4">Sản phẩm</h1>
+    <div class="search-manage-container">
+        <form asp-action="Index" method="get" class="search-form">
+            Tìm sản phẩm:
+            <input type="text" name="name" class="search-input" /><button class="search-button">Tìm</button>
+        </form>
+
+    </div>
+</div>
+    <br />
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="@product.ImageUrl" alt="@product.Name" class="card-img-top" width="200px" height="550px">
+                    <div class="card-body">
+                        <h5 class="card-title">@product.Name</h5>
+                        <p class="card-text">Giá: <span>&#x20B9;</span> <span class="product-price">@product.Price</span></p>
+                        <p class="card-text">Mô tả: @product.Description</p>
+                        <br />
+                    </div>
+                    <a asp-controller="ShoppingCart" asp-action="AddToCart" asp-route-productId ="@product.Id"
+                        asp-rout-quantity="@numOfQuantity">
+                        <button class="btn btn-outline-dark"><i class="bi-cart-fill me-1"></i>Thêm vào giỏ hàng</button> 
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
